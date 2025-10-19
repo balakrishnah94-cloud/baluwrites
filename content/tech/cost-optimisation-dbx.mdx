@@ -1,0 +1,12 @@
+  ---
+  title: "Cost optimisation in Databricks: clusters, caching, and Z-Ordering"
+  date: "2025-09-28"
+  excerpt: "Practical knobs I use to keep performance high and spend low."
+  tags: ["Databricks", "Performance", "Delta"]
+  category: "tech"
+  ---
+
+  - Pick the right cluster size and use **autoscaling**
+- Cache hot tables; use **Z-ORDER** on join/filter columns
+- Compact with **OPTIMIZE**; avoid small files
+

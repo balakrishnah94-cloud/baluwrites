@@ -1,0 +1,25 @@
+---
+title: "Metadata-driven pipelines in ADF + Databricks"
+date: "2025-10-12"
+excerpt: "Designing resilient incremental loads with watermarks, SCD, and Delta Lake."
+tags: ["Azure", "ADF", "Databricks", "Delta"]
+category: "tech"
+---
+
+**Concept.** Centralize table configs (source, target, watermark, SCD type) and let pipelines read configs to orchestrate loads dynamically.
+
+**Pattern.**
+- Config table / file drives ingestion (schema, load type, keys)
+- ADF orchestrates -> Databricks notebooks execute
+- Delta Lake for ACID + time travel
+
+```sql
+-- Example: watermarked query
+SELECT * FROM sales WHERE updated_at > :last_watermark;
+```
+
+```python
+# PySpark sketch
+df = spark.read.format("delta").table("bronze.sales")
+incr = df.filter(df.updated_at > last_watermark)
+```
